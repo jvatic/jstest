@@ -226,7 +226,6 @@ jasmine.HtmlReporterHelpers.addHelpers(jasmine.HtmlReporter);jasmine.HtmlReporte
   };
 
   this.suiteComplete = function(suite) {
-    window.jasmineComplete = true
     var suiteView = this.views.suites[suite.id];
     if (isUndefined(suiteView)) {
       return;
@@ -281,6 +280,7 @@ jasmine.HtmlReporterHelpers.addHelpers(jasmine.HtmlReporter);jasmine.HtmlReporte
   };
 
   this.complete = function() {
+    window.jasmineComplete = true;
     dom.alert.removeChild(this.runningAlert);
 
     this.skippedAlert.innerHTML = "Ran " + this.runningSpecCount + " of " + specPluralizedFor(this.totalSpecCount) + " - run all";

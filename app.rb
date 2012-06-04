@@ -32,8 +32,8 @@ get '/assets/*' do
   assets.call(new_env)
 end
 
-get '/jasmine' do
-  @javascripts = (params[:js_files] || '').split(',')
+get '/jasmine/*' do
+  @javascripts = (params[:splat].first || '').split(',')
   haml :jasmine
 end
 

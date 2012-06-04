@@ -7,7 +7,7 @@
 
     %script{ :type => 'text/javascript', :src => "/assets/jasmine.js" }
     %script{ :type => 'text/javascript', :src => "/assets/jasmine-html.js" }
-    %script{ :type => 'text/javascript', :src => "/assets/jasmine-console.js" }
+    %script{ :type => 'text/javascript', :src => "/assets/jasmine-object.js" }
     - @javascripts.each do |name|
       %script{ :type => 'text/javascript', :src => "/assets/#{name}.js" }
     - @javascripts.each do |name|
@@ -19,8 +19,10 @@
       jasmineEnv.updateInterval = 1000;
 
       var htmlReporter = new jasmine.HtmlReporter();
+      var objectReporter = new jasmine.ObjectReporter();
 
       jasmineEnv.addReporter(htmlReporter);
+      jasmineEnv.addReporter(objectReporter);
 
       jasmineEnv.specFilter = function(spec) {
         jasmineResults.push(spec);
