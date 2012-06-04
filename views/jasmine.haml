@@ -1,0 +1,42 @@
+!!!
+%html
+  %head
+    %title Jasmine Spec Runner
+
+    %link{ :rel => 'stylesheet', :href => '/assets/jasmine.css' }
+
+    %script{ :type => 'text/javascript', :src => "/assets/jasmine.js" }
+    %script{ :type => 'text/javascript', :src => "/assets/jasmine-html.js" }
+    %script{ :type => 'text/javascript', :src => "/assets/jasmine-console.js" }
+    - @javascripts.each do |name|
+      %script{ :type => 'text/javascript', :src => "/assets/#{name}.js" }
+    - @javascripts.each do |name|
+      %script{ :type => 'text/javascript', :src => "/assets/#{name}_spec.js" }
+
+    :javascript
+      var jasmineResults = [];
+      var jasmineEnv = jasmine.getEnv();
+      jasmineEnv.updateInterval = 1000;
+
+      var htmlReporter = new jasmine.HtmlReporter();
+
+      jasmineEnv.addReporter(htmlReporter);
+
+      jasmineEnv.specFilter = function(spec) {
+        jasmineResults.push(spec);
+        return htmlReporter.specFilter(spec);
+      };
+
+      var currentWindowOnload = window.onload;
+
+      window.onload = function() {
+        if (currentWindowOnload) {
+          currentWindowOnload();
+        }
+        execJasmine();
+      };
+
+      function execJasmine() {
+        jasmineEnv.execute();
+      }
+
