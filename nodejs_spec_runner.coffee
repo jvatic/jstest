@@ -4,7 +4,9 @@ SpecPrinter = require './lib/spec_printer'
 browser = new Browser
 spec_printer = new SpecPrinter
 
-address = "http://localhost:4567/jasmine/dummy"
+files = process.argv.splice(2)
+
+address = "http://localhost:4567/jasmine/#{files.join(',')}"
 
 browser.visit address, ->
   waitFor = (check, callback, checkInterval=100)->

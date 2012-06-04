@@ -34,6 +34,10 @@ end
 
 get '/jasmine/*' do
   @javascripts = (params[:splat].first || '').split(',')
+  @javascripts.map! do |file|
+    assets.paths.each { |p| file = file.sub(p.sub(/^\//, ''), '') }
+    file.sub(/^\//, '').sub(/\.js.*?$/, '')
+  end
   haml :jasmine
 end
 
