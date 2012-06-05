@@ -9,14 +9,17 @@ files = process.argv.splice(2)
 address = "http://localhost:4567/jasmine/#{files.join(',')}"
 
 browser.visit address, ->
+  timeout = null
   waitFor = (check, callback, checkInterval=100)->
     _check = ->
       if check()
         callback()
       else
-        setTimeout _check, checkInterval
+        timeout = setTimeout _check, checkInterval
 
     _check()
+
+  setTimeout (-> clearTimeout(timeout); console.log('Timed out')), 10000
 
   start = new Date
   console.log "Running specs...\n"
