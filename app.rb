@@ -1,3 +1,5 @@
+Dir.chdir(File.expand_path(File.join(__FILE__, '..')))
+
 require 'bundler/setup'
 Bundler.require
 
