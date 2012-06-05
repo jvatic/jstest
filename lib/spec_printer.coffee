@@ -9,11 +9,15 @@ class SpecPrinter
     passedCount = totalCount - failedCount
 
     dots = ""
-    for i in [1..passedCount]
+    i = passedCount
+    while i > 0
       dots += @color(".", 'green')
+      i -= 1
 
-    for i in [1..failedCount]
+    i = failedCount
+    while i > 0
       dots += @color("F", 'red')
+      i -= 1
 
     console.log dots
     console.log "#{ @pluralize(totalCount, 'spec') }, #{ failedCount } failing, completed in #{finish - start} seconds\n"
