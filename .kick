@@ -1,0 +1,10 @@
+recipe :jsStilt do
+  process do |files|
+    test_files = files.take_and_map do |file|
+      if path =~ %r|([\w/]+?)(_spec)*\.js(\.coffee)?|
+        $1
+      end
+    end.uniq
+    execute "jsStilt #{test_files.join(' ')}" unless test_files.empty?
+  end
+end
