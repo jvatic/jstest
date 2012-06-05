@@ -109,6 +109,9 @@ options.parse!
 
 subcommand = ARGV.shift
 asset_paths = ARGV
+asset_paths.map! do |path|
+  File.expand_path(path)
+end
 
 case subcommand
 when 'serve' then serve(asset_paths)
