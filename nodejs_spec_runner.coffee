@@ -19,8 +19,6 @@ browser.visit address, ->
 
     _check()
 
-  setTimeout (-> clearTimeout(timeout); console.log('Timed out')), 10000
-
   start = new Date
   console.log "Running specs...\n"
   waitFor (-> browser.window.jasmineObjectReporterFinished), ->

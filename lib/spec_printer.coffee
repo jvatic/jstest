@@ -3,10 +3,13 @@ class SpecPrinter
     @color = require("ansi-color").set
 
   processResults: (objectReporterResults, start, finish)->
-    totalCount = objectReporterResults.totalCount
+    totalCount = objectReporterResults.totalCount - 1
     failedCount = objectReporterResults.failedCount
 
     passedCount = totalCount - failedCount
+
+    if totalCount == 0
+      return console.log("No Specs to run!")
 
     dots = ""
     i = passedCount
@@ -23,6 +26,7 @@ class SpecPrinter
     console.log "#{ @pluralize(totalCount, 'spec') }, #{ failedCount } failing, completed in #{finish - start} seconds\n"
 
     for spec in objectReporterResults.specs
+      continue if spec.description.match('jsStilt-IGNOREME')
       failedCount = spec.failedCount
       totalCount = spec.totalCount
 
