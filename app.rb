@@ -1,6 +1,5 @@
 Dir.chdir(File.expand_path(File.join(__FILE__, '..')))
-
-require 'bundler/setup'
+require 'bundler'
 Bundler.require
 
 assets = Sprockets::Environment.new do |env|
