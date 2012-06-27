@@ -9,6 +9,7 @@ class ObjectReporter
     @results = {
       totalCount: 0
       failedCount: 0
+      pendingCount: 0
       specs: []
     }
 
@@ -25,8 +26,13 @@ class ObjectReporter
         items = results.getItems()
 
         failedCount = 0
+        pendingCount = 0
         items = for item in items
-          failedCount += 1 unless item.passed()
+          unless item.passed()
+            if item.message == 'Pending'
+              pendingCount += 1
+            else
+              failedCount += 1
 
           if item.trace && item.trace.stack
             item.trace.stack = for shard in item.trace.stack.split("\n")
@@ -38,11 +44,14 @@ class ObjectReporter
           description: "#{name} #{spec.description}"
           items: items
           failedCount: failedCount
+          pendingCount: pendingCount
+          passedCount: items.length - failedCount - pendingCount
           totalCount: items.length
         }
 
         @results.totalCount += items.length
         @results.failedCount += failedCount
+        @results.pendingCount += pendingCount
 
     window.jasmineObjectReporterFinished = true
     window.jasmineObjectReporterResults = @results
