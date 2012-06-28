@@ -9,8 +9,6 @@
     %script{ :type => 'text/javascript', :src => "/assets/jasmine-html.js" }
     %script{ :type => 'text/javascript', :src => "/assets/jasmine-object.js" }
     - @javascripts.each do |name|
-      %script{ :type => 'text/javascript', :src => "/assets/#{name}.js" }
-    - @javascripts.each do |name|
       %script{ :type => 'text/javascript', :src => "/assets/#{name}_spec.js" }
 
     :javascript
