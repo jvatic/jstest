@@ -18,6 +18,7 @@ class SpecPrinter
 
     dots = ""
     for spec in objectReporterResults.specs
+      continue unless spec.message
       i = spec.passedCount
       while i > 0
         dots += @color(".", 'green')
@@ -47,7 +48,7 @@ class SpecPrinter
         for item in spec.items
           console.log @color("\t#{item.message}", 'red')
           console.log @color("\texpected #{item.expected} #{item.matcherName} #{item.actual}", 'red') if item.expected && item.matcherName && item.actual
-          console.log @color("\t#{ item.trace.stack.join("\n\t") }\n", 'bold') unless item.trace == ''
+          console.log @color("\t#{ item?.trace?.stack?.join("\n\t") }\n", 'bold')
       else if pendingCount > 0
         console.log @color(spec.description, 'yellow')
       else
