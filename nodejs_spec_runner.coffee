@@ -7,6 +7,7 @@ spec_printer = new SpecPrinter
 files = process.argv.splice(2)
 
 address = "http://localhost:4567/jasmine/#{files.join(',')}"
+console.log "Loading ", address, "..."
 
 browser.visit address, ->
   timeout = null
