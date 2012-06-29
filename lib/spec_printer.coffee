@@ -18,21 +18,17 @@ class SpecPrinter
 
     dots = ""
     for spec in objectReporterResults.specs
-      continue unless spec.message
       i = spec.passedCount
-      while i > 0
+      if i > 0
         dots += @color(".", 'green')
-        i -= 1
 
       i = spec.failedCount
-      while i > 0
+      if i > 0
         dots += @color("F", 'red')
-        i -= 1
 
       i = spec.pendingCount
-      while i > 0
+      if i > 0
         dots += @color("*", 'yellow')
-        i -= 1
 
     console.log dots
     console.log "#{ @pluralize(totalCount, 'spec') }, #{ failedCount } failing, #{ pendingCount } pending, completed in #{ @pluralize(finish - start, "seconds") }\n"
