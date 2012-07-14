@@ -18,6 +18,7 @@ class SpecPrinter
 
     dots = ""
     for spec in objectReporterResults.specs
+      continue if spec.description.match('jsStilt-IGNOREME')
       i = spec.passedCount
       if i > 0
         dots += @color(".", 'green')
