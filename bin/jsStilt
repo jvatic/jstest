@@ -62,7 +62,7 @@ def serve(asset_paths)
     files = conn.gets.chomp
     files = files.split(SEPARATOR)
 
-    run(files, conn)
+    run(files)
   end
 ensure
   if pid
@@ -73,7 +73,7 @@ ensure
   end
 end
 
-def run(files, conn)
+def run(files)
   cmd = "#{ run_command } #{files.join(' ')}"
   puts cmd
   puts `#{ cmd }`
@@ -116,6 +116,7 @@ end
 case subcommand
 when 'serve' then serve(asset_paths)
 when 'push' then push
+when 'run' then run(ARGV)
 else
   $stderr.puts options
   exit 1
