@@ -13,8 +13,8 @@ SEPARATOR = '|'
 
 def usage
   <<-USAGE
-Usage: jsStilt serve
-       jsStilt push <file> <file>...
+Usage: jsStilt serve <asset_path> <asset_path> ...
+       jsStilt push <file> <file> ...
 jsSilt preloads an asset server to speed up running your Jasmine specs
   USAGE
 end
@@ -74,7 +74,9 @@ ensure
 end
 
 def run(files, conn)
-  puts `#{ run_command } #{files.join(' ')}`
+  cmd = "#{ run_command } #{files.join(' ')}"
+  puts cmd
+  puts `#{ cmd }`
 end
 
 def push
@@ -84,9 +86,7 @@ def push
   files_to_load = ARGV
 
   files_to_load = files_to_load.map do |file_name|
-    if File.exists?(file_name)
-      File.expand_path(file_name)
-    end
+    File.expand_path(file_name)
   end.compact.uniq
 
   f = files_to_load.join(SEPARATOR)
@@ -109,6 +109,9 @@ options.parse!
 
 subcommand = ARGV.shift
 asset_paths = ARGV
+asset_paths.map! do |path|
+  File.expand_path(path)
+end
 
 case subcommand
 when 'serve' then serve(asset_paths)

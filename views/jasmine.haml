@@ -10,8 +10,6 @@
     %script{ :type => 'text/javascript', :src => "/assets/jasmine-object.js" }
     %script{ :type => 'text/javascript', :src => "/assets/sinon.js" }
     - @javascripts.each do |name|
-      %script{ :type => 'text/javascript', :src => "/assets/#{name}.js" }
-    - @javascripts.each do |name|
       %script{ :type => 'text/javascript', :src => "/assets/#{name}_spec.js" }
 
     :javascript
@@ -42,4 +40,6 @@
       function execJasmine() {
         jasmineEnv.execute();
       }
+
+      describe("jsStilt-IGNOREME", function(){ it('', function(){ expect(true).toEqual(true) }); });
 

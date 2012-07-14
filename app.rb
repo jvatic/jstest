@@ -1,4 +1,5 @@
-require 'bundler/setup'
+Dir.chdir(File.expand_path(File.join(__FILE__, '..')))
+require 'bundler'
 Bundler.require
 
 assets = Sprockets::Environment.new do |env|
@@ -11,6 +12,7 @@ paths.each do |path|
 end
 
 ARGV.each do |path|
+  path = File.expand_path(path)
   if File.exists?(path)
     assets.append_path(path)
   end
@@ -36,8 +38,8 @@ get '/jasmine/*' do
   @javascripts = (params[:splat].first || '').split(',')
   @javascripts.map! do |file|
     assets.paths.each { |p| file = file.sub(p.sub(/^\//, ''), '') }
-    file.sub(/^\//, '').sub(/\.js.*?$/, '')
-  end
+    file.sub(/\.js.*?$/, '').sub(/\/spec/, '').sub(Dir.pwd, '').sub(/^\/*/, '')
+  end.uniq.reject { |name| name == 'app' }
   haml :jasmine
 end
 
